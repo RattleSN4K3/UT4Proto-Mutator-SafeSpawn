@@ -1,0 +1,55 @@
+[UT4SafeSpawnMutatorCompat UTUIDataProvider_Mutator]
+FriendlyName="UT4 Prototype: Safe Spawn (compatible)"
+Description="A ghost protection spawn system compatible to other mutators"
+
+[UT4SafeSpawnMutatorCompat UTUIDataProvider_Mutator]
+FriendlyName="UT4 Prototype: Safe Spawn (standalone)"
+Description="A ghost protection spawn system with a Pawn class replacement"
+
+[UT4SafeSpawnDmgType_Ghostfrag]
+DeathString="`k spawn as ghost in `o's body."
+FemaleSuicide="`o killed himself as ghost."
+MaleSuicide="`o killed himself as ghost."
+
+[UT4SafeSpawnInventory]
+ProtectionActiveMessage="Ghost protection currently active"
+ProtectionActiveMessageWithTime="Ghost protection currently active (`ts)"
+FireToUnProtectMessage="Press [FIRE] to remove ghost protection"
+TimeStringMessage="`ts"
+
+[UT4SafeSpawnSettingsServer]
+PropertyMappings[0]=(ColumnHeaderText="Ghost Protection time",)
+PropertyMappings[1]=(ColumnHeaderText="Allow Ghost frags",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+PropertyMappings[2]=(ColumnHeaderText="Initial fire delay")
+;
+PropertyDescriptions[0]="The amout of time a player is protected by being a ghost."
+PropertyDescriptions[1]="Whether to allow fragging enemy players by spawning inside their character."
+PropertyDescriptions[2]="The delay in seconds a player has to wait after being an active player before being able to shoot."
+
+[UT4SafeSpawnSettingsServer Tooltips]
+GhostProtectionTime="The amout of time a player is protected by being a ghost."
+AllowGhostFrag="Whether to allow fragging enemy players by spawning inside their character."
+InitialFireDelay="The delay in seconds a player has to wait after being an active player before being able to shoot."
+
+[UT4SafeSpawnSettingsClient]
+PropertyMappings[0]=(ColumnHeaderText="Switch to ThirdPerson",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+PropertyMappings[1]=(ColumnHeaderText="Apply PostProcessing effects",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+PropertyMappings[2]=(ColumnHeaderText="Hide crosshair",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+PropertyMappings[3]=(ColumnHeaderText="Show remaining time",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+PropertyMappings[4]=(ColumnHeaderText="Bar time threshold ")
+PropertyMappings[5]=(ColumnHeaderText="Play warning sound"ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+;
+PropertyDescriptions[0]="Whether to switch to third person once you spawn as a ghost. The view will be reverted if the time of the protection runs out."
+PropertyDescriptions[1]="Whether to apply post-processing effect once you spawn as a ghost. This effect will desaturate the scene. The colors will be reverted if the time of the protection runs out."
+PropertyDescriptions[2]="Whether to remove/hide the crosshair while being a ghost."
+PropertyDescriptions[3]="Whether to show a formatted time if you are a ghost."
+PropertyDescriptions[4]="The time for which the barshould be drawn. If the ghost protection last 8s for instance and this value is set to 5s, the bar will not be drawn the first 3s."
+PropertyDescriptions[5]="Whether to play warning sounds when the protection is about to run out."
+
+[UT4SafeSpawnSettingsClient Tooltips]
+SwitchToThirdPerson="Whether to switch to third person once you spawn as a ghost. The view will be reverted if the time of the protection runs out."
+ApplyPPEffects="Whether to apply post-processing effect once you spawn as a ghost. This effect will desaturate the scene. The colors will be reverted if the time of the protection runs out."
+HideCrosshairTemporarely="Whether to remove/hide the crosshair while being a ghost."
+ShowTime="Whether to show a formatted time if you are a ghost."
+BarTimeThreshold="The time for which the barshould be drawn. If the ghost protection last 8s for instance and this value is set to 5s, the bar will not be drawn the first 3s."
+WarningSound="Whether to play warning sounds when the protection is about to run out."
