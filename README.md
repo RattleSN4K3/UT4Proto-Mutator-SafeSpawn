@@ -41,7 +41,7 @@ Method 2:
 
  - Add this line to the command line arguments (or your shortcut, server command line, ...):
    `?mutator=UT4Proto_MutatorSafeSpawn.UT4SafeSpawnMutatorCompat`  
-   or
+or  
    `?mutator=UT4Proto_MutatorSafeSpawn.UT4SafeSpawnMutatorStand`
  - Split multiple mutators by the character `,` (comma)
    
@@ -55,6 +55,8 @@ Method 3:
 
 
 # Preview
+
+## Screenshots
 
 Helping message (player spawns in third person):
 <img src="Screenshots/1/0001.jpg" width="640">
@@ -70,9 +72,11 @@ Additional spawn effect when protection ends (switch to first person):
 Ghost as seen for other players (able to shoot and walk through):
 <img src="Screenshots/1/0006.jpg" width="640">
 
+## Video
 
 You can check the video which demonstrate the basic functionality:  
-[UE4 UT Prototype Safe Spawn](https://www.youtube.com/watch?v=cjP1UGg9Vgo)
+https://www.youtube.com/watch?v=cjP1UGg9Vgo  
+[![UE4 UT Prototype Safe Spawn](http://img.youtube.com/vi/cjP1UGg9Vgo/hqdefault.jpg)](http://www.youtube.com/watch?v=cjP1UGg9Vgo)
 
 
 # Configuration
@@ -96,16 +100,17 @@ The first command should be used for server settings. The latter command can be 
 The are **3** server settings and **6** client settings. All these settings are changeable by the console command. If you are playing as client and want to change a server settings, you have to logged in as admin. You can still change settings with the 2nd command but these will only be changed on your local system for your local games.
 
 __Server settings__:
-Variable | Values | Description | Explanation
--------- | ------ | ----------- | -----------
+
+Variable  | Values  | Description  | Explanation
+--------- | ------- | ------------ | -----------
 **GhostProtectionTime** | positive float value | Ghost Protection time | The amout of time a player is protected by being a ghost
 **InitialFireDelay** | positive float value | Initial fire delay | The delay in seconds a player has to wait after being an active player before being able to shoot.
 **AllowGhostFrag** | `0`/`1` | Allow Ghost frags | Whether to allow fragging enemy players by spawning inside their character
 
-
 __Client settings__:
+
 Variable | Values | Description | Explanation
--------- |
+-------- | ------ | ----------- | -----------
 **SwitchToThirdPerson** | `0`/`1` | Switch to ThirdPerson | Whether to switch to third person once you spawn as a ghost. The view will be reverted if the time of the protection runs out
 **ApplyPPEffects** | `0`/`1` | Apply PostProcessing effects | Whether to apply post-processing effect once you spawn as a ghost. This effect will desaturate the scene. The colors will be reverted if the time of the protection runs out."
 **HideCrosshairTemporarely** | `0`/`1` | Hide crosshair | Whether to remove/hide the crosshair while being a ghost.
