@@ -21,7 +21,7 @@ It basically started as an idea to improve the spawn system as system spawn kill
 
 # Install
 
- - Download the lastest version
+ - Download the [lastest version](/releases/latest)
  - Extract the zip file to your UT3 folder. For instance:  
   `%userprofile%\Documents\My Games\Unreal Tournament 3\UTGame`  
   or manually move the content to the following subfolders:
