@@ -58,18 +58,18 @@ Method 3:
 
 ## Screenshots
 
-Helping message (player spawns in third person):
+Helping message (player spawns in third person):  
 <img src="Screenshots/1/0001.jpg" width="640">
 
-Timer with bar until respawn:
-<img src="Screenshots/1/0002.jpg" width="640">
-<img src="Screenshots/1/0003.jpg" width="640">
-<img src="Screenshots/1/0004.jpg" width="640">
+Timer with bar until respawn:  
+<img src="Screenshots/1/0002.jpg" width="640">  
+<img src="Screenshots/1/0003.jpg" width="640">  
+<img src="Screenshots/1/0004.jpg" width="640">  
 
-Additional spawn effect when protection ends (switch to first person):
+Additional spawn effect when protection ends (switch to first person):  
 <img src="Screenshots/1/0005.jpg" width="640">
 
-Ghost as seen for other players (able to shoot and walk through):
+Ghost as seen for other players (able to shoot and walk through):  
 <img src="Screenshots/1/0006.jpg" width="640">
 
 ## Video
