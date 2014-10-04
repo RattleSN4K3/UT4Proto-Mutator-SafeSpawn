@@ -24,6 +24,8 @@ var bool bGhostAbortVehicleCheck;
 
 var float InitialFireDelay;
 
+var bool bCheckWeaponPutDown;
+
 //'''''''''''''''''''''''''
 // Client variables
 //'''''''''''''''''''''''''
@@ -126,7 +128,7 @@ function AddDefaultInventory()
 // SetPuttingDownWeapon is the only way to interfere the weapon change
 simulated function SetPuttingDownWeapon(bool bNowPuttingDownWeapon)
 {
-	if (Role == ROLE_Authority && !bProtectionOver && bNowPuttingDownWeapon)
+	if (Role == ROLE_Authority && !bProtectionOver && bNowPuttingDownWeapon && bCheckWeaponPutDown)
 	{
 		DeactivateSpawnProtection();
 	}

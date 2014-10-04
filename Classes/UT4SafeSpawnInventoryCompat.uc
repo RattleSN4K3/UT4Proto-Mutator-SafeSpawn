@@ -5,6 +5,13 @@ class UT4SafeSpawnInventoryCompat extends UT4SafeSpawnInventory;
 //**********************************************************************************
 
 //'''''''''''''''''''''''''
+// Server variables
+//'''''''''''''''''''''''''
+
+var bool bWaitForLanded;
+var float WaitForLandedTime;
+
+//'''''''''''''''''''''''''
 // Client variables
 //'''''''''''''''''''''''''
 
@@ -27,7 +34,10 @@ function OwnerEvent(name EventName)
 	super.OwnerEvent(EventName);
 	switch (EventName)
 	{
-		
+		case 'Landed':
+			WaitForLandedTime = WorldInfo.TimeSeconds;
+			break;
+
 		case 'ChangedWeapon':
 			if (UTInventoryManager(Instigator.InvManager) != none && UTInventoryManager(Instigator.InvManager).PreviousWeapon == none)
 			{
@@ -35,6 +45,13 @@ function OwnerEvent(name EventName)
 				// so we need to abort this call once for the weapon change on spawn (where the previous weapon is none)
 				break;
 			}
+			else if (bWaitForLanded || WaitForLandedTime == WorldInfo.TimeSeconds)
+			{
+				bWaitForLanded = false;
+				break;
+			}
+
+			// fall through
 
 		case 'FiredWeapon':
 			TimeExpired();

@@ -178,6 +178,10 @@ function ModifyPlayer(Pawn Other)
 
 		ProtectPlayer(UTPawn(Other), true);
 	}
+	else if (UT4SafeSpawnPawn(Other) != none)
+	{
+		UT4SafeSpawnPawn(Other).bCheckWeaponPutDown = true;
+	}
 }
 
 function Mutate(string MutateString, PlayerController Sender)
@@ -554,6 +558,12 @@ function ProtectPlayer(UTPawn Other, bool bProtect, optional out UT4SafeSpawnRep
 
 		if (CompatibleMode)
 		{
+			if (HasInventory(Other, inv) && UT4SafeSpawnInventoryCompat(inv) != none &&
+				UTGame(WorldInfo.Game) != none && UTGame(WorldInfo.Game).bStartWithLockerWeaps)
+			{
+				UT4SafeSpawnInventoryCompat(inv).bWaitForLanded = true;
+			}
+
 			// link pawn so any other Pawn becomes a full ghost
 			if (GetLinkedRI(GetController(Other), LinkedRI))
 			{
