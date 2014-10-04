@@ -61,7 +61,6 @@ function Setup(PlayerController InPC, LocalPlayer InPlayer, delegate<UT4SafeSpaw
 	}
 
 	Disable('Tick');
-	Disable('PostRender');
 
 	bInitialized = true;
 	bReInitialize = false;
