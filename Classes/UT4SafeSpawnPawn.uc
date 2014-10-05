@@ -25,6 +25,7 @@ var bool bGhostAbortVehicleCheck;
 var float InitialFireDelay;
 
 var bool bCheckWeaponPutDown;
+var float CheckWeaponPutDownTime;
 
 //'''''''''''''''''''''''''
 // Client variables
@@ -122,15 +123,21 @@ function AddDefaultInventory()
 	{
 		SetCrosshair(self, true);
 		GiveInventory(self, true);
+
+		bCheckWeaponPutDown = true;
+		CheckWeaponPutDownTime = WorldInfo.RealTimeSeconds;
 	}
 }
 
 // SetPuttingDownWeapon is the only way to interfere the weapon change
 simulated function SetPuttingDownWeapon(bool bNowPuttingDownWeapon)
 {
-	if (Role == ROLE_Authority && !bProtectionOver && bNowPuttingDownWeapon && bCheckWeaponPutDown)
+	if (Role == ROLE_Authority && !bProtectionOver && bNowPuttingDownWeapon)
 	{
-		DeactivateSpawnProtection();
+		if (!bCheckWeaponPutDown || WorldInfo.RealTimeSeconds - CheckWeaponPutDownTime > 1.0)
+		{
+			DeactivateSpawnProtection();
+		}
 	}
 
 	super.SetPuttingDownWeapon(bNowPuttingDownWeapon);

@@ -2,6 +2,7 @@ class UT4SafeSpawnInteraction extends Interaction;
 
 `if(`notdefined(FINAL_RELEASE))
 	var bool bShowDebug;
+	var bool bShowDebugInput;
 `endif
 
 //**********************************************************************************
@@ -49,6 +50,10 @@ function NotifyGameSessionEnded()
 
 function Setup(PlayerController InPC, LocalPlayer InPlayer, delegate<UT4SafeSpawn.OnFireInput> FireDelegate)
 {
+`if(`notdefined(FINAL_RELEASE))
+	local int i;
+`endif
+
 	`Log(name$"::Initialize",bShowDebug,'UT4SafeSpawn');
 
 	PlayerOwner = InPC;
@@ -58,6 +63,13 @@ function Setup(PlayerController InPC, LocalPlayer InPlayer, delegate<UT4SafeSpaw
 	if (!bInitialized)
 	{
 		FireKeys = GetKeys(PlayerOwner);
+
+`if(`notdefined(FINAL_RELEASE))
+		for (i=0; i<FireKeys.Length; i++)
+		{
+			`Log(name$"::Initialize - Key "$i$":"@FireKeys[i],bShowDebug,'UT4SafeSpawn');
+		}
+`endif
 	}
 
 	Disable('Tick');
@@ -94,10 +106,11 @@ function bool OnInputKey( int ControllerId, name Key, EInputEvent EventType, opt
 {
 	local delegate<UT4SafeSpawn.OnFireInput> FireDelegate;
 
-	`Log(name$"::OnInputKey - ControllerId:"@ControllerId@" - Key:"@Key@" - EventType:"@EventType@" - AmountDepressed:"@AmountDepressed@" - bGamepad:"@bGamepad,bShowDebug,'UT4SafeSpawn');
+	`Log(name$"::OnInputKey - ControllerId:"@ControllerId@" - Key:"@Key@" - EventType:"@EventType@" - AmountDepressed:"@AmountDepressed@" - bGamepad:"@bGamepad,bTackKeyInput && bShowDebug&&bShowDebugInput,'UT4SafeSpawn');
 
 	if (bTackKeyInput && FireCallback != none && FireKeys.Find(Key) != INDEX_NONE)
 	{
+		`Log(name$"::OnInputKey - Fire key found",bShowDebug&&bShowDebugInput,'UT4SafeSpawn');
 		switch (EventType)
 		{
 		case IE_Pressed:
@@ -113,7 +126,7 @@ function bool OnInputKey( int ControllerId, name Key, EInputEvent EventType, opt
 				//FireDelegate();
 			}
 		
-			return true;
+			break;
 			
 		case IE_Released:
 			if (bFireCalled && bSuckOnce)
@@ -124,10 +137,10 @@ function bool OnInputKey( int ControllerId, name Key, EInputEvent EventType, opt
 				// call delegated function in order to trigger the Fire event
 				FireDelegate = FireCallback;
 				FireDelegate();
-
-				return true;
 			}
 		}
+
+		return true;
 	}
 
 	return false;
@@ -143,7 +156,7 @@ exec function SafeSpawn(optional string command)
 }
 
 //**********************************************************************************
-// Private functions
+// Public functions
 //**********************************************************************************
 
 function BlockInput(bool bBlock)
@@ -206,7 +219,8 @@ function array<name> GetKeys(PlayerController PC)
 DefaultProperties
 {
 `if(`notdefined(FINAL_RELEASE))
-	bShowDebug=false
+	bShowDebug=true
+	bShowDebugInput=true
 `endif
 
 	OnReceivedNativeInputKey=OnInputKey
