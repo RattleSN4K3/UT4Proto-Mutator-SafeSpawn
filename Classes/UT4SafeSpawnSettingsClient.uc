@@ -55,7 +55,7 @@ DefaultProperties
 	PropertyMappings(2)=(ID=2,Name="HideCrosshairTemporarely",ColumnHeaderText="Hide crosshair",MappingType=PVMT_IDMapped,ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
 	PropertyDescriptions(2)="Whether to remove/hide the crosshair while being a ghost."
 
-	Properties(3)=(PropertyID=10,Data=(Type=SDT_Float))
+	Properties(3)=(PropertyID=10,Data=(Type=SDT_Int32))
 	PropertyMappings(3)=(ID=10,Name="ShowTime",ColumnHeaderText="Show remaining time",MappingType=PVMT_IDMapped,ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
 	PropertyDescriptions(3)="Whether to show a formatted time if you are a ghost."
 
@@ -63,7 +63,7 @@ DefaultProperties
 	PropertyMappings(4)=(ID=11,Name="BarTimeThreshold",ColumnHeaderText="Bar time threshold ",MappingType=PVMT_Ranged,MinVal=0,MaxVal=999999,RangeIncrement=1.0)
 	PropertyDescriptions(4)="The time for which the barshould be drawn. If the ghost protection last 8s for instance and this value is set to 5s, the bar will not be drawn the first 3s."
 
-	Properties(5)=(PropertyID=12,Data=(Type=SDT_Float))
+	Properties(5)=(PropertyID=12,Data=(Type=SDT_Int32))
 	PropertyMappings(5)=(ID=12,Name="WarningSound",ColumnHeaderText="Play warning sound",MappingType=PVMT_IDMapped,ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
 	PropertyDescriptions(5)="Whether to play warning sounds when the protection is about to run out."
 

@@ -661,8 +661,10 @@ static function ProcessCommand(PlayerController Sender, string command, optional
 
 static function bool SetSettingsPropertyValues(Settings Setts, out name PropertyName, coerce string PropertyValue)
 {
-	local int PropertyId;
-	if (Setts.GetPropertyId(PropertyName, PropertyId))
+	local int index;
+
+	index = Setts.PropertyMappings.Find('Name', PropertyName);
+	if (index != INDEX_NONE)
 	{
 		Setts.SetPropertyFromStringByName(PropertyName, PropertyValue);
 		Setts.SetSpecialValue('WebAdmin_Save', "");
