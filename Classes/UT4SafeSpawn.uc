@@ -555,7 +555,7 @@ static function ProcessCommand(PlayerController Sender, string command, optional
 				str = Setts.PropertyMappings[i].Name $":"@str;
 				Sender.ClientMessage(str);
 			}
-			Sender.ClientMessage("");
+			Sender.ClientMessage(" ");
 		}
 
 		if (Sender.WorldInfo.NetMode == NM_Client)
@@ -678,10 +678,11 @@ static function bool GetSettingsPropertyValues(Settings Setts, name PropertyName
 	optional out string PropertyDesc,
 	optional out int PropertyId)
 {
-	if (Setts.GetPropertyId(PropertyName, PropertyId))
+	PropertyId = Setts.PropertyMappings.Find('Name', PropertyName);
+	if (PropertyId != INDEX_NONE)
 	{
 		PropertyText = Setts.PropertyMappings[PropertyId].ColumnHeaderText;
-		PropertyValue = Setts.GetPropertyAsString(PropertyId);
+		PropertyValue = Setts.GetPropertyAsStringByName(PropertyName);
 		PropertyDesc = Setts.GetSpecialValue(name("PropertyDescription_"$PropertyName));
 		return true;
 	}
