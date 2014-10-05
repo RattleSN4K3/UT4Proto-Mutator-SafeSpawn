@@ -439,8 +439,9 @@ static function SetCrosshairFor(InventoryManager InvManager, bool bRemoveCross, 
 
 static function SetThirdPersonFor(UTPlayerController UTPC, bool bEnable, optional out byte bOriginalBehindView)
 {
+
 	// if disabled or unable to switch view, abort
-	if (!default.SwitchToThirdPerson || UTPC == none || UTPC.Pawn == none || !UTPC.Pawn.IsLocallyControlled())
+	if (!default.SwitchToThirdPerson || UTPC == none || !UTPC.IsLocalPlayerController())
 		return;
 
 	if (bEnable)
@@ -450,7 +451,7 @@ static function SetThirdPersonFor(UTPlayerController UTPC, bool bEnable, optiona
 	}
 	else
 	{
-		if (UTPawn(UTPC.Pawn) != none && UTPawn(UTPC.Pawn).bFeigningDeath && UTPC.Pawn.IsInState('FeigningDeath'))
+		if (UTVehicle(UTPC.Pawn) == none && UTPawn(UTPC.Pawn) != none && UTPawn(UTPC.Pawn).bFeigningDeath && UTPC.Pawn.IsInState('FeigningDeath'))
 		{
 			UTPC.SetBehindView(true);
 		}
