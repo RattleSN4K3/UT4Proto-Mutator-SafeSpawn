@@ -58,7 +58,7 @@ function Setup(PlayerController InPC, LocalPlayer InPlayer, delegate<UT4SafeSpaw
 
 	PlayerOwner = InPC;
 	LP = InPlayer;
-	FireCallback = FireDelegate;
+	Update(FireDelegate);
 
 	if (!bInitialized)
 	{
@@ -75,6 +75,11 @@ function Setup(PlayerController InPC, LocalPlayer InPlayer, delegate<UT4SafeSpaw
 	Disable('Tick');
 
 	bInitialized = true;
+}
+
+function Update(delegate<UT4SafeSpawn.OnFireInput> FireDelegate)
+{
+	FireCallback = FireDelegate;
 	bReInitialize = false;
 }
 

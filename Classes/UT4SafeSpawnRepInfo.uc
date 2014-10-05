@@ -32,6 +32,8 @@ var bool bOriginalIgnoreForces;
 var bool bOriginalOverridePostProcessSettings;
 var PostProcessSettings OriginalPostProcessSettingsOverride;
 
+var float PawnCounterTime;
+
 //'''''''''''''''''''''''''
 // Replication variables
 //'''''''''''''''''''''''''
@@ -82,6 +84,8 @@ simulated event ReplicatedEvent(name VarName)
 		{
 			`Log(name$"::ReplicatedEvent - PawnCounter:"@PawnCounter,bShowDebug,'UT4SafeSpawn');
 			OldPawn = PawnCounter;
+			PawnCounterTime = WorldInfo.RealTimeSeconds;
+
 			UpdateGhostFor(PawnCounter, true);
 		}
 	}
@@ -129,7 +133,8 @@ simulated function SetupInteraction(PlayerController PC, bool bAdd)
 
 	if (ClientInteraction != none && bAdd)
 	{
-		`Log(name$"::SetupInteraction - Already setup. Abort!",bShowDebug,'UT4SafeSpawn');
+		`Log(name$"::SetupInteraction - Already setup. Only update",bShowDebug,'UT4SafeSpawn');
+		ClientInteraction.Update(OnFireInput);
 		return;
 	}
 
@@ -158,16 +163,14 @@ simulated function SetupInteraction(PlayerController PC, bool bAdd)
 
 simulated function OnFireInput()
 {
-	ServerFired();
-
-	if (bFireCalled)
+	if (bFireCalled || class'UT4SafeSpawn'.static.ShouldIgnoreInputForNow(PawnCounterTime, WorldInfo.RealTimeSeconds))
 	{
 		class'UT4SafeSpawn'.static.PlayFireBlockedWarningFor(PlayerOwner);
+		return;
 	}
-	else
-	{
-		bFireCalled = true;
-	}
+
+	ServerFired();
+	bFireCalled = true;
 }
 
 //**********************************************************************************

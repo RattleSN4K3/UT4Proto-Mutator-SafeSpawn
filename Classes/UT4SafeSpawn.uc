@@ -41,6 +41,7 @@ var() config bool AllowGhostFrag; // MOVED HERE FOR EASY REFERENCING
 var() config bool SwitchToThirdPerson;
 var() config bool ApplyPPEffects;
 var() config bool HideCrosshairTemporarely;
+var() config float IgnoreInputThreshold;
 
 //**********************************************************************************
 // Workflow variables
@@ -688,6 +689,16 @@ static function bool GetSettingsPropertyValues(Settings Setts, name PropertyName
 	return false;
 }
 
+static function bool ShouldIgnoreInputForNow(float StoredTime, float CurrentTime)
+{
+	if (default.IgnoreInputThreshold < 0)
+	{
+		return true;
+	}
+
+	return (StoredTime + default.IgnoreInputThreshold > CurrentTime);
+}
+
 DefaultProperties
 {
 	FireBlockedWarningSound=SoundCue'A_Gameplay.ONS.A_GamePlay_ONS_CoreImpactShieldedCue'
@@ -732,4 +743,5 @@ DefaultProperties
 	SwitchToThirdPerson=True
 	ApplyPPEffects=True
 	HideCrosshairTemporarely=True
+	IgnoreInputThreshold=0.0
 }

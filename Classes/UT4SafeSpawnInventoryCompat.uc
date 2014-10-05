@@ -87,8 +87,12 @@ simulated function ClientSetup(UTPawn P, bool bRemove)
 		if (bLocallyOwned())
 		{
 			SetCrosshair(P, !bRemove);
-		
 			//BlockWeapons(P, !bRemove);
+
+			if (!bRemove)
+			{
+				FixWeapons(P);
+			}
 		}
 	}
 }
@@ -138,6 +142,24 @@ simulated function BlockWeapons(Pawn P, bool bBlock)
 				Weap.WeaponFireTypes = WeaponRestore[index].WeaponFireTypes;
 			}
 		}
+	}
+}
+
+simulated function FixWeapons(UTPawn P)
+{
+	local InventoryManager TempInvManager;
+	local UTWeap_Enforcer Enf;
+	
+	if (P == none)
+		return;
+
+	TempInvManager = P.InvManager != none ? P.InvManager : InvSetup.InvManager;
+	if (TempInvManager == none)
+		return;
+
+	ForEach TempInvManager.InventoryActors(class'UTWeap_Enforcer', Enf)
+	{
+		Enf.bLoaded = true;
 	}
 }
 

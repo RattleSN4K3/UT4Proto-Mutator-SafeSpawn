@@ -11,10 +11,6 @@ class UT4SafeSpawnPawn extends UTPawn;
 // Workflow variables
 //**********************************************************************************
 
-var bool PP_Scene_Changed;
-
-var float FireStartTime;
-
 //'''''''''''''''''''''''''
 // Server variables
 //'''''''''''''''''''''''''
@@ -47,6 +43,8 @@ var repnotify byte EnableGhost;
 // Stored variables
 //'''''''''''''''''''''''''
 
+var bool PP_Scene_Changed;
+
 var bool bCrosshairRemoved;
 var array<CrosshairRestoreInfo> CrosshairRestore;
 
@@ -59,6 +57,8 @@ var bool bOriginalIgnoreForces;
 
 var bool bOriginalOverridePostProcessSettings;
 var PostProcessSettings OriginalPostProcessSettingsOverride;
+
+var float PawnCounterTime;
 
 //**********************************************************************************
 // Replication
@@ -91,6 +91,7 @@ simulated event ReplicatedEvent(name VarName)
 		{
 			OldEnableGhost = EnableGhost;
 			bGhost = EnableGhost == 1;
+			PawnCounterTime = WorldInfo.RealTimeSeconds;
 			
 			UTPC = UTPlayerController(Controller);
 			SetThirdPerson(UTPC, bGhost);
@@ -223,9 +224,17 @@ simulated function StartFire(byte FireModeNum)
 {
 	if (!bProtectionOver /*&& Role < ROLE_Authority*/)
 	{
-		`Log(name$"::StartFire - OFF FireModeNum:"@FireModeNum,bShowDebug&&bShowDebugFire,'UT4SafeSpawn');
-		ServerSkipProtection();
-		FireStartTime = WorldInfo.TimeSeconds+2.0;
+		if (class'UT4SafeSpawn'.static.ShouldIgnoreInputForNow(PawnCounterTime, WorldInfo.RealTimeSeconds))
+		{
+			`Log(name$"::StartFire - IGNORE FireModeNum:"@FireModeNum,bShowDebug&&bShowDebugFire,'UT4SafeSpawn');
+			class'UT4SafeSpawn'.static.PlayFireBlockedWarningFor(PlayerController(Controller));
+		}
+		else
+		{
+			`Log(name$"::StartFire - OFF FireModeNum:"@FireModeNum,bShowDebug&&bShowDebugFire,'UT4SafeSpawn');
+			ServerSkipProtection();
+		}
+
 		return;
 	}
 
@@ -350,6 +359,7 @@ simulated function UpdateGhost(bool bEnable)
 	SetGhost(bEnable);
 	SetGhostEffect(bEnable);
 	SetGhostSound(bEnable);
+	FixWeapons(bEnable);
 	
 	if (Role == ROLE_Authority)
 	{
@@ -360,6 +370,26 @@ simulated function UpdateGhost(bool bEnable)
 		{
 			class'UT4SafeSpawn'.static.CheckSpawnKill(self);
 		}
+	}
+}
+
+simulated function FixWeapons(bool bEnable)
+{
+	local UTWeap_Enforcer Enf;
+	
+	if (!bEnable || Role == ROLE_Authority)
+		return;
+	
+	if (InvManager == none)
+	{
+		// Manager not replicated yet, start timer to check for constantly
+		SetTimer(0.1, false, GetFuncName());
+		return;
+	}
+
+	ForEach InvManager.InventoryActors(class'UTWeap_Enforcer', Enf)
+	{
+		Enf.bLoaded = true;
 	}
 }
 
