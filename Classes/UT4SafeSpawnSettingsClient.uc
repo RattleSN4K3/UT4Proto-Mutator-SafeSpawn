@@ -9,6 +9,7 @@ function SetSpecialValue(name PropertyName, string NewValue)
 		SetPropertyValue('SwitchToThirdPerson', OutputBool(class'UT4SafeSpawn'.default.SwitchToThirdPerson));
 		SetPropertyValue('ApplyPPEffects', OutputBool(class'UT4SafeSpawn'.default.ApplyPPEffects));
 		SetPropertyValue('HideCrosshairTemporarely', OutputBool(class'UT4SafeSpawn'.default.HideCrosshairTemporarely));
+		SetPropertyValue('IgnoreInputThreshold', class'UT4SafeSpawn'.default.IgnoreInputThreshold);
 		
 		SetPropertyValue('ShowTime', OutputBool(class'UT4SafeSpawnInventory'.default.ShowTime));
 		SetPropertyValue('BarTimeThreshold', class'UT4SafeSpawnInventory'.default.BarTimeThreshold);
@@ -23,6 +24,8 @@ function SetSpecialValue(name PropertyName, string NewValue)
 			class'UT4SafeSpawn'.default.ApplyPPEffects = ParseBool(CurProperty);
 		If (GetPropertyValue('HideCrosshairTemporarely', CurProperty))
 			class'UT4SafeSpawn'.default.HideCrosshairTemporarely = ParseBool(CurProperty);
+		If (GetPropertyValue('IgnoreInputThreshold', CurProperty))
+			class'UT4SafeSpawn'.default.IgnoreInputThreshold = ParseFloat(CurProperty);
 
 		class'UT4SafeSpawn'.static.StaticSaveConfig();
 
@@ -52,7 +55,6 @@ DefaultProperties
 	PropertyMappings(2)=(ID=2,Name="HideCrosshairTemporarely",ColumnHeaderText="Hide crosshair",MappingType=PVMT_IDMapped,ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
 	PropertyDescriptions(2)="Whether to remove/hide the crosshair while being a ghost."
 
-
 	Properties(3)=(PropertyID=10,Data=(Type=SDT_Float))
 	PropertyMappings(3)=(ID=10,Name="ShowTime",ColumnHeaderText="Show remaining time",MappingType=PVMT_IDMapped,ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
 	PropertyDescriptions(3)="Whether to show a formatted time if you are a ghost."
@@ -64,4 +66,8 @@ DefaultProperties
 	Properties(5)=(PropertyID=12,Data=(Type=SDT_Float))
 	PropertyMappings(5)=(ID=12,Name="WarningSound",ColumnHeaderText="Play warning sound",MappingType=PVMT_IDMapped,ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
 	PropertyDescriptions(5)="Whether to play warning sounds when the protection is about to run out."
+
+	Properties(6)=(PropertyID=3,Data=(Type=SDT_Float))
+	PropertyMappings(6)=(ID=3,Name="IgnoreInputThreshold",ColumnHeaderText="Threshold ignoring input",MappingType=PVMT_Ranged,MinVal=-1.0,MaxVal=999999,RangeIncrement=0.2)
+	PropertyDescriptions(6)="The time in seconds in which the fire input is ignored after the player respawned. This would preserve being ghost for that specific time if you press your fire-key repeatedly after being killed. Set a value lower than 0 to ignore input the full time."
 }

@@ -19,7 +19,7 @@ TimeStringMessage="`ts"
 
 [UT4SafeSpawnSettingsServer]
 PropertyMappings[0]=(ColumnHeaderText="Ghost Protection time",)
-PropertyMappings[1]=(ColumnHeaderText="Allow Ghost frags",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+PropertyMappings[1]=(ColumnHeaderText="Allow Ghost frags",ValueMappings=((Name="no "),(Name="yes ")))
 PropertyMappings[2]=(ColumnHeaderText="Initial fire delay")
 ;
 PropertyDescriptions[0]="The amout of time a player is protected by being a ghost."
@@ -32,12 +32,13 @@ AllowGhostFrag="Whether to allow fragging enemy players by spawning inside their
 InitialFireDelay="The delay in seconds a player has to wait after being an active player before being able to shoot."
 
 [UT4SafeSpawnSettingsClient]
-PropertyMappings[0]=(ColumnHeaderText="Switch to ThirdPerson",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
-PropertyMappings[1]=(ColumnHeaderText="Apply PostProcessing effects",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
-PropertyMappings[2]=(ColumnHeaderText="Hide crosshair",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
-PropertyMappings[3]=(ColumnHeaderText="Show remaining time",ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+PropertyMappings[0]=(ColumnHeaderText="Switch to ThirdPerson",ValueMappings=((Name="no "),(Name="yes ")))
+PropertyMappings[1]=(ColumnHeaderText="Apply PostProcessing effects",ValueMappings=((Name="no "),(Name="yes ")))
+PropertyMappings[2]=(ColumnHeaderText="Hide crosshair",ValueMappings=((Name="no "),(Name="yes ")))
+PropertyMappings[3]=(ColumnHeaderText="Show remaining time",ValueMappings=((Name="no "),(Name="yes ")))
 PropertyMappings[4]=(ColumnHeaderText="Bar time threshold ")
-PropertyMappings[5]=(ColumnHeaderText="Play warning sound"ValueMappings=((ID=0,Name="no "),(ID=1,Name="yes ")))
+PropertyMappings[5]=(ColumnHeaderText="Play warning sound",ValueMappings=((Name="no "),(Name="yes ")))
+PropertyMappings[6]=(ColumnHeaderText="Threshold ignoring input")
 ;
 PropertyDescriptions[0]="Whether to switch to third person once you spawn as a ghost. The view will be reverted if the time of the protection runs out."
 PropertyDescriptions[1]="Whether to apply post-processing effect once you spawn as a ghost. This effect will desaturate the scene. The colors will be reverted if the time of the protection runs out."
@@ -45,11 +46,13 @@ PropertyDescriptions[2]="Whether to remove/hide the crosshair while being a ghos
 PropertyDescriptions[3]="Whether to show a formatted time if you are a ghost."
 PropertyDescriptions[4]="The time for which the barshould be drawn. If the ghost protection last 8s for instance and this value is set to 5s, the bar will not be drawn the first 3s."
 PropertyDescriptions[5]="Whether to play warning sounds when the protection is about to run out."
+PropertyDescriptions[6]="The time in seconds in which the fire input is ignored after the player respawned. This would preserve being ghost for that specific time if you press your fire-key repeatedly after being killed. Set a value lower than 0 to ignore input the full time."
 
 [UT4SafeSpawnSettingsClient Tooltips]
 SwitchToThirdPerson="Whether to switch to third person once you spawn as a ghost. The view will be reverted if the time of the protection runs out."
 ApplyPPEffects="Whether to apply post-processing effect once you spawn as a ghost. This effect will desaturate the scene. The colors will be reverted if the time of the protection runs out."
 HideCrosshairTemporarely="Whether to remove/hide the crosshair while being a ghost."
+IgnoreInputThreshold="The time in seconds in which the fire input is ignored after the player respawned. This would preserve being ghost for that specific time if you press your fire-key repeatedly after being killed."
 ShowTime="Whether to show a formatted time if you are a ghost."
 BarTimeThreshold="The time for which the barshould be drawn. If the ghost protection last 8s for instance and this value is set to 5s, the bar will not be drawn the first 3s."
 WarningSound="Whether to play warning sounds when the protection is about to run out."
