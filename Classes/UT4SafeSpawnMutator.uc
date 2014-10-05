@@ -178,10 +178,6 @@ function ModifyPlayer(Pawn Other)
 
 		ProtectPlayer(UTPawn(Other), true);
 	}
-	else if (UT4SafeSpawnPawn(Other) != none)
-	{
-		UT4SafeSpawnPawn(Other).bCheckWeaponPutDown = true;
-	}
 }
 
 function Mutate(string MutateString, PlayerController Sender)
