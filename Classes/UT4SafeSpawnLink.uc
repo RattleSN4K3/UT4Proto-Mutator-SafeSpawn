@@ -1,5 +1,9 @@
 class UT4SafeSpawnLink extends ReplicationInfo;
 
+`if(`notdefined(FINAL_RELEASE))
+	var bool bShowDebug;
+`endif
+
 //**********************************************************************************
 // Workflow variables
 //**********************************************************************************
@@ -41,7 +45,7 @@ simulated event ReplicatedEvent(name VarName)
 
 	if (VarName == 'PawnOwner')
 	{
-		`Log(name$"::ReplicatedEvent - PawnOwner:"@PawnOwner,,'UT4SafeSpawn');
+		`Log(name$"::ReplicatedEvent - PawnOwner:"@PawnOwner,bShowDebug,'UT4SafeSpawn');
 		if (OldPawnOwner != PawnOwner) // prevent update twice 
 		{
 			OldPawnOwner = PawnOwner;
@@ -58,7 +62,7 @@ simulated event ReplicatedEvent(name VarName)
 
 simulated function UpdateGhost(bool bEnable)
 {
-	`Log(name$"::UpdateGhost - bEnable:"@bEnable,,'UT4SafeSpawn');
+	`Log(name$"::UpdateGhost - bEnable:"@bEnable,bShowDebug,'UT4SafeSpawn');
 		
 	SetGhost(bEnable);
 	SetGhostEffect(bEnable);
@@ -114,4 +118,7 @@ simulated function SetGhostEffect(bool bTurnOn)
 
 DefaultProperties
 {
+`if(`notdefined(FINAL_RELEASE))
+	bShowDebug=false
+`endif
 }
