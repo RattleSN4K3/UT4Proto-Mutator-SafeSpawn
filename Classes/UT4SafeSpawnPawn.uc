@@ -135,7 +135,7 @@ simulated function SetPuttingDownWeapon(bool bNowPuttingDownWeapon)
 {
 	if (Role == ROLE_Authority && !bProtectionOver && bNowPuttingDownWeapon)
 	{
-		if (!bCheckWeaponPutDown || WorldInfo.RealTimeSeconds - CheckWeaponPutDownTime > 1.0)
+		if (bCheckWeaponPutDown && WorldInfo.RealTimeSeconds - CheckWeaponPutDownTime > 1.0)
 		{
 			DeactivateSpawnProtection();
 		}
