@@ -60,27 +60,27 @@ __Method 3:__
 ## Screenshots
 
 Helping message (player spawns in third person):  
-<img src="Screenshots/1/0001.jpg" width="640">
+<img src="Screenshots/1/0001.jpg" height="360px">
 
 Timer with bar until respawn:  
-<img src="Screenshots/1/0002.jpg" width="640">  
-<img src="Screenshots/1/0003.jpg" width="640">  
-<img src="Screenshots/1/0004.jpg" width="640">  
+<img src="Screenshots/1/0002.jpg" height="360px">  
+<img src="Screenshots/1/0003.jpg" height="360px">  
+<img src="Screenshots/1/0004.jpg" height="360px">  
 
 Additional spawn effect when protection ends (switch to first person):  
-<img src="Screenshots/1/0005.jpg" width="640">
+<img src="Screenshots/1/0005.jpg" height="360px">
 
 Ghost as seen for other players (able to shoot and walk through):  
-<img src="Screenshots/2/0007.jpg" width="640">
-<img src="Screenshots/2/0009.jpg" width="640">
-<img src="Screenshots/2/0011.jpg" width="640">
+<img src="Screenshots/2/0007.jpg" height="360px">
+<img src="Screenshots/2/0009.jpg" height="360px">
+<img src="Screenshots/2/0011.jpg" height="360px">
 
 Ghost killing a *living* player:  
-<img src="Screenshots/2/0013.jpg" width="640">
-<img src="Screenshots/2/0014.jpg" width="640">
+<img src="Screenshots/2/0013.jpg" height="360px">
+<img src="Screenshots/2/0014.jpg" height="360px">
 
 Being killed by a Ghost:  
-<img src="Screenshots/2/0015-17.jpg" width="640">  
+<img src="Screenshots/2/0015-17.jpg" height="360px">  
 Single: [#1](Screenshots/2/0015.jpg) [#2](Screenshots/2/0016.jpg) [#3](Screenshots/2/0017.jpg)
 
 ## Video
