@@ -1,0 +1,15 @@
+v1.0 - Initial release
+- Containing two main mutators (standalone and compatible)
+- Server and Client settings
+- Console command to change settings
+ 
+v1.1
+- Fixed: Spawning near weapon lockers removes protection immediately
+- Fixed: Third person view stucks when entering vehicle while being protected
+- Fixed: Settings are not saving randomly-sorted properties properly
+- Fixed: Weapon change is not working for listen servers in standalone mode
+- Fixed: Suiciding causing ghost still being visible
+- Fixed: Post process still active on disconnect
+- Fixed: Bad format in the Localization file
+- New: Ability to ingore input on respawn (to suppress spammed keypresses)
+- Changed: Minor changes
