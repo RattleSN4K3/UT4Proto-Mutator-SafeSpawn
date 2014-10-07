@@ -28,6 +28,7 @@ var float CheckWeaponPutDownTime;
 //'''''''''''''''''''''''''
 
 var byte OldEnableGhost;
+var UTPlayerController OldController;
 
 //'''''''''''''''''''''''''
 // Replication variables
@@ -50,10 +51,7 @@ var array<CrosshairRestoreInfo> CrosshairRestore;
 
 var bool bOriginalBehindView;
 
-var bool bOriginalCollideActors;
-var bool bOriginalBlockActors;
-var bool bOriginalPushesRigidBodies;
-var bool bOriginalIgnoreForces;
+var GhostCollisionInfo StoredOriginals;
 
 var bool bOriginalOverridePostProcessSettings;
 var PostProcessSettings OriginalPostProcessSettingsOverride;
@@ -68,7 +66,7 @@ replication
 {
 	if ( bNetDirty)
 		bProtectionOver, bFireDelayRanout;
-	if ( bNetDirty && bNetOwner)
+	if ( bNetDirty)
 		EnableGhost;
 }
 
@@ -93,9 +91,12 @@ simulated event ReplicatedEvent(name VarName)
 			bGhost = EnableGhost == 1;
 			PawnCounterTime = WorldInfo.RealTimeSeconds;
 			
-			UTPC = UTPlayerController(Controller);
+			UTPC = OldController != none ? OldController : UTPlayerController(Controller);
 			SetThirdPerson(UTPC, bGhost);
 			SetPPEffects(UTPC, bGhost);
+
+			// store PC
+			OldController = UTPC;
 
 			if (WorldInfo.NetMode == NM_Client || !bGhost)
 			{
@@ -432,19 +433,7 @@ simulated function SetPPEffects(UTPlayerController PC, bool bAdd)
 
 simulated function SetGhost(bool bTurnOn)
 {
-	local SetGhostForOut bOriginals;
-	
-	bOriginals.bOriginalCollideActors = bOriginalCollideActors;
-	bOriginals.bOriginalBlockActors = bOriginalBlockActors;
-	bOriginals.bOriginalPushesRigidBodies = bOriginalPushesRigidBodies;
-	bOriginals.bOriginalIgnoreForces = bOriginalIgnoreForces;
-
-	class'UT4SafeSpawn'.static.SetGhostFor(self, bTurnOn, bOriginals);
-
-	bOriginalCollideActors = bOriginals.bOriginalCollideActors;
-	bOriginalBlockActors = bOriginals.bOriginalBlockActors;
-	bOriginalPushesRigidBodies = bOriginals.bOriginalPushesRigidBodies;
-	bOriginalIgnoreForces = bOriginals.bOriginalIgnoreForces;
+	class'UT4SafeSpawn'.static.SetGhostFor(self, bTurnOn, StoredOriginals);
 }
 
 simulated function SetGhostEffect(bool bTurnOn)

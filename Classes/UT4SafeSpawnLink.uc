@@ -17,16 +17,12 @@ var delegate<UT4SafeSpawn.OnUnProtectFire> UnProtectCallback;
 var UTPawn LastPawn;
 var UTPawn OldPawnOwner;
 
-var bool bOriginalCollideActors;
-var bool bOriginalBlockActors;
-var bool bOriginalPushesRigidBodies;
-var bool bOriginalIgnoreForces;
-
 //'''''''''''''''''''''''''
 // Replication variables
 //'''''''''''''''''''''''''
 
 var repnotify UTPawn PawnOwner;
+var GhostCollisionInfo ReplicatedOriginals;
 
 //**********************************************************************************
 // Replication
@@ -36,7 +32,7 @@ replication
 {
 	// replicate always on change even into demos
 	if(bNetDirty && (Role == ROLE_Authority))
-		PawnOwner;
+		PawnOwner, ReplicatedOriginals;
 }
 
 simulated event ReplicatedEvent(name VarName)
@@ -96,19 +92,23 @@ function NotfiyRemove()
 
 simulated function SetGhost(bool bTurnOn)
 {
-	local SetGhostForOut bOriginals;
+	local GhostCollisionInfo bOriginals;
 	
-	bOriginals.bOriginalCollideActors = bOriginalCollideActors;
-	bOriginals.bOriginalBlockActors = bOriginalBlockActors;
-	bOriginals.bOriginalPushesRigidBodies = bOriginalPushesRigidBodies;
-	bOriginals.bOriginalIgnoreForces = bOriginalIgnoreForces;
+	if (bTurnOn)
+	{
+		class'UT4SafeSpawn'.static.SetGhostFor(LastPawn, true, bOriginals);
 
-	class'UT4SafeSpawn'.static.SetGhostFor(LastPawn, bTurnOn, bOriginals);
-
-	bOriginalCollideActors = bOriginals.bOriginalCollideActors;
-	bOriginalBlockActors = bOriginals.bOriginalBlockActors;
-	bOriginalPushesRigidBodies = bOriginals.bOriginalPushesRigidBodies;
-	bOriginalIgnoreForces = bOriginals.bOriginalIgnoreForces;
+		if (Role == ROLE_Authority)
+		{
+			ReplicatedOriginals = bOriginals;
+			ReplicatedOriginals.bSet = true;
+		}
+	}
+	else if (ReplicatedOriginals.bSet)
+	{
+		`Log(name$"::SetGhost - Restore collision",bShowDebug,'UT4SafeSpawn');
+		class'UT4SafeSpawn'.static.SetGhostFor(LastPawn, false, ReplicatedOriginals);
+	}
 }
 
 simulated function SetGhostEffect(bool bTurnOn)

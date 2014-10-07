@@ -282,7 +282,7 @@ simulated function SetPPEffects(UTPlayerController PC, bool bAdd)
 
 simulated function SetGhost(UTPawn P, bool bTurnOn)
 {
-	local SetGhostForOut bOriginals;
+	local GhostCollisionInfo bOriginals;
 	if (P == none)
 		return;
 	

@@ -24,8 +24,10 @@ struct WeaponRestoreInfo
 	var				Array<EWeaponFireType>		WeaponFireTypes;
 };
 
-struct SetGhostForOut
+struct GhostCollisionInfo
 {
+	var bool bSet;
+
 	var bool bOriginalCollideActors;
 	var bool bOriginalBlockActors;
 	var bool bOriginalPushesRigidBodies;
@@ -214,7 +216,7 @@ static function SetPPEffectsFor(UTPlayerController PC, bool bAdd,
 //}
 
 static function SetGhostFor(UTPawn P, bool bTurnOn, 
-	optional out SetGhostForOut bOriginals,
+	optional out GhostCollisionInfo bOriginals,
 	optional bool bUseDefault)
 {
 	if (P == none)
@@ -246,16 +248,24 @@ static function SetGhostFor(UTPawn P, bool bTurnOn,
 			bOriginals.bOriginalIgnoreForces = P.default.bIgnoreForces;
 		}
 
-		P.SetCollision(bOriginals.bOriginalCollideActors, bOriginals.bOriginalBlockActors);
-		P.SetPushesRigidBodies(bOriginals.bOriginalPushesRigidBodies);
-		if (!P.bFeigningDeath)
+		if (!P.bPlayedDeath)
 		{
-			//@FIX: adjust the Comp's BlockRigidBody to true at this time will cause UT3 crash on suicide for instance
-			//Done. This is somehow fixed, not sure why
-			if (P.CollisionComponent != None)
+			P.SetCollision(bOriginals.bOriginalCollideActors, bOriginals.bOriginalBlockActors);
+			P.SetPushesRigidBodies(bOriginals.bOriginalPushesRigidBodies);
+			if (!P.bFeigningDeath)
 			{
-				P.CollisionComponent.SetBlockRigidBody(bOriginals.bOriginalPushesRigidBodies);
+				//@FIX: adjust the Comp's BlockRigidBody to true at this time will cause UT3 crash on suicide for instance
+				//Done. This is somehow fixed, not sure why
+				if (P.CollisionComponent != None)
+				{
+					P.CollisionComponent.SetBlockRigidBody(bOriginals.bOriginalPushesRigidBodies);
+				}
 			}
+		}
+		else if (P.Mesh != none)
+		{
+			P.Mesh.SetTraceBlocking(true, true);
+			P.Mesh.SetActorCollision(true, false);
 		}
 
 		P.bIgnoreForces = bOriginals.bOriginalIgnoreForces;

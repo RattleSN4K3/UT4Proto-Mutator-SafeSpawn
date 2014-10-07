@@ -148,7 +148,7 @@ event TimeExpired()
 simulated event Destroyed()
 {
 	local UTPawn P;
-	//local delegate<UT4SafeSpawn.OnUnProtectPickup> UnProtectDelegate;
+	local delegate<UT4SafeSpawn.OnUnProtectPickup> UnProtectDelegate;
 
 	P = UTPawn(Owner);
 	if (P == none) P = InvSetup.InvOwner;
@@ -161,22 +161,21 @@ simulated event Destroyed()
 		}
 		else
 		{
-			//// notify main module
-			//if (UnProtectCallback != none)
-			//{
-			//	UnProtectDelegate = UnProtectCallback;
-			//	UnProtectDelegate(UTPawn(Instigator));
-			//}
+			// notify main module
+			if (UnProtectCallback != none)
+			{
+				UnProtectDelegate = UnProtectCallback;
+				UnProtectDelegate(UTPawn(Instigator));
+			}
 
 			// clear reference
 			UnProtectCallback = none;
 
-		//	// notify server
-		//	if (UnProtectCallback != none && TimeRemaining <= 0)
-		//	{
-		//		UnProtectDelegate = UnProtectCallback;
-		//		UnProtectDelegate(UTPawn(Instigator));
-		//	}
+			// notify server
+			if (UnProtectDelegate != none && TimeRemaining > 0)
+			{
+				UnProtectDelegate(UTPawn(Instigator));
+			}
 		}
 	}
 
