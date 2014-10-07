@@ -122,6 +122,7 @@ static function SetPPEffectsFor(UTPlayerController PC, bool bAdd,
 {
 	local LocalPlayer LP;
 	local PostProcessSettings OverrideSettings;
+	local UT4SafeSpawnRestore restore;
 
 	// if disabled or unable to apply effects, abort
 	if (PC == none || !default.ApplyPPEffects)
@@ -162,6 +163,9 @@ static function SetPPEffectsFor(UTPlayerController PC, bool bAdd,
 			LP.ClearPostProcessSettingsOverride();
 		}
 	}
+
+	restore = class'UT4SafeSpawnRestore'.static.GetRestore();
+	restore.Update(LP, PP_Scene_Changed == 1 || LP.bOverridePostProcessSettings);
 }
 
 //OLD CODE. Not working for all the maps
