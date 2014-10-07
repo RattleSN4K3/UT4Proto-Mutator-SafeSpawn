@@ -4,7 +4,6 @@ Safe Spawn
 A concept for [Unreal Tournament](http://www.unrealtournament.com/) made for **Unreal Tournament 3** exchanging the stock spawn protection system with a *Ghost protection*.
 
 __Features:__ 
-
  - Different protection system **without** being **invincible**
  - Allow killing by spawning into someones character (for fast recovery)
  - Ability to check your spawn spot and decide your route
@@ -34,25 +33,22 @@ This should make the spawn system more flexible and less predictable.
 
 # Usage
 
-Method 1:
- 
+__Method 1:__
  - Start the game
  - Add one of the following mutator:
-  - `UT4 Prototype: Safe Spawn (compatible)`
+  - `UT4 Prototype: Safe Spawn (compatible)`  
 compatible to other mutators
-  - `UT4 Prototype: Safe Spawn (standalone)`
+  - `UT4 Prototype: Safe Spawn (standalone)`  
 mostly incompatible to mutators like *UTComp3*, *BTA*, *GearsCam* etc.
  - Enjoy.
 
-Method 2:
-
+__Method 2:__
  - Add one of the following lines to the command line arguments (or your shortcut, server command line, ...):
-  - `?mutator=UT4Proto_MutatorSafeSpawn.UT4SafeSpawnMutatorCompat`  
+  - `?mutator=UT4Proto_MutatorSafeSpawn.UT4SafeSpawnMutatorCompat`
   - `?mutator=UT4Proto_MutatorSafeSpawn.UT4SafeSpawnMutatorStand`
  - **Note:** Split multiple mutators by the character `,` (comma)
    
-Method 3:
-
+__Method 3:__
  - Open the *WebAdmin* interface
  - Navigate to the following address `/ServerAdmin/current/change`
  - Enable `UT4 Prototype: Safe Spawn` (compatible or standalone)
@@ -179,7 +175,8 @@ Before the code can be compiled, the engine must be aware of the installed sourc
 
 For easy referencing, `%basedir%` would be the local profile folder `%userprofile%\Documents\My Games\Unreal Tournament 3\UTGame`
 
-- Download the source files
+- Download the [latest source files](/../../archive/master.zip)
+- Extract the zipped source files
 - Create a folder named `UT4Proto_MutatorSafeSpawn`into the source folder `%basedir%\Src`
 - Copy/symlink the **`Classes`** folder of the source files into `%basedir%\Src\UT4Proto_MutatorSafeSpawn`
 - Copy/symlink `Config\UTUT4Proto_MutatorSafeSpawn.ini` to `%basedir%\Src\Config`
@@ -189,8 +186,6 @@ For easy referencing, `%basedir%` would be the local profile folder `%userprofil
 - Copy/symlink `Content\UT4Proto_MutatorSafeSpawnContent.upk` to **both** folders:  
  - `%basedir%\Published\CookedPC`
  - `%basedir%\Unpublished\CookedPC`
-    UT4Proto_MutatorSafeSpawn.uto .\Published\Script
-    UT4Proto_MutatorSafeSpawn.intto .\Published\Localization
 
 And finally add the package to the compiling packages of the engine.
 
